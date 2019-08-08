@@ -17,6 +17,7 @@
     "ejs": "^2.6.2",
     "express": "^4.17.1",
     "express-validator": "^6.1.1",
-    "sqlite": "^3.0.3"
+    "sqlite": "^3.0.3",
+    "sqlite-parser": "^1.0.1"
   }
 }

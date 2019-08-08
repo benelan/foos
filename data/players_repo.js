@@ -51,6 +51,11 @@ class PlayerRepo {
           [id])
       }
 
+      selectAll() {
+        return this.dao.get(
+          `SELECT * FROM players`)
+        }
+
     }
   
   module.exports = PlayerRepo;
