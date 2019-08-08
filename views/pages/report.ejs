@@ -1,0 +1,106 @@
+<!-- views/pages/report.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+<header>
+    <% include ../partials/header %>
+</header>
+
+<main>
+<div class="row">
+    <div class="col-sm-8">    
+        <div class="jumbotron">
+            <form method="POST" action="/submit-game">
+            <TABLE BORDER="1">
+            <TR>
+                <TD>Team</TD>
+			    <TD>Name</TD>
+			    <TD>Points</TD>
+                <TD>Wins</TD>
+		    </TR>
+		    <TR>
+             <TD>One</TD>
+			<TD>
+				<INPUT TYPE="TEXT" NAME="name1" SIZE="20">
+			</TD>
+            <TD>
+				<INPUT TYPE="TEXT" NAME="points1" SIZE="20">
+			</TD>
+            <TD>
+				<INPUT TYPE="TEXT" NAME="wins1" SIZE="20">
+			</TD>
+		</TR>
+        <TR> 
+            <TD>One</TD>
+			<TD>
+				<INPUT TYPE="TEXT" NAME="name2" SIZE="20">
+			</TD>
+            <TD>
+				<INPUT TYPE="TEXT" NAME="points2" SIZE="20">
+			</TD>
+            <TD>
+				<INPUT TYPE="TEXT" NAME="wins2" SIZE="20">
+			</TD>
+		</TR>
+        <TR>
+         <TD>Two</TD>
+			<TD>
+				<INPUT TYPE="TEXT" NAME="name3" SIZE="20">
+			</TD>
+            <TD>
+				<INPUT TYPE="TEXT" NAME="points3" SIZE="20">
+			</TD>
+            <TD>
+				<INPUT TYPE="TEXT" NAME="wins3" SIZE="20">
+			</TD>
+		</TR>
+
+        <TR>
+                 <TD>Two</TD>
+			<TD>
+				<INPUT TYPE="TEXT" NAME="name4" SIZE="20">
+			</TD>
+            <TD>
+				<INPUT TYPE="TEXT" NAME="points4" SIZE="20">
+			</TD>
+            <TD>
+				<INPUT TYPE="TEXT" NAME="wins4" SIZE="20">
+			</TD>
+		</TR>
+		
+	</TABLE>
+    <br>
+	<P>
+		<INPUT TYPE="SUBMIT" VALUE="Submit" NAME="B1">
+	</P>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-sm-4">        
+        <div class="well">
+            <h3>Suggestions</h3>
+                <form method="POST" action="/submit-suggest">
+                
+                <p>Name: <INPUT TYPE="TEXT" NAME="namesug" SIZE="32"></p>
+                
+                <p>Ideas to make this leaderboard better:
+				<textarea rows = "7" cols = "40" name = "description"></textarea></p>
+                <INPUT TYPE="SUBMIT" VALUE="Submit" NAME="B1">
+        </div>
+    </div>
+
+</div>
+</main>
+
+<footer>
+    <% include ../partials/footer %>
+</footer>
+
+</body>
+</html>

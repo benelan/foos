@@ -1,0 +1,22 @@
+{
+  "name": "fooscharts",
+  "version": "1.0.0",
+  "description": "Foosball Leaderboards",
+  "main": "index.js",
+  "scripts": {
+    "test": "ftest"
+  },
+  "keywords": [
+    "foos"
+  ],
+  "author": "Ben",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.5",
+    "body-parser": "^1.19.0",
+    "ejs": "^2.6.2",
+    "express": "^4.17.1",
+    "express-validator": "^6.1.1",
+    "sqlite": "^3.0.3"
+  }
+}
