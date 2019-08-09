@@ -1,5 +1,5 @@
 // server.js
-// load the things we need
+// the goodies
 const express = require("express"),
   bodyParser = require("body-parser"),
   path = require("path"),
@@ -12,8 +12,8 @@ const express = require("express"),
 
 app = express();
 
-app.use(express.static(path.join(__dirname, "public")));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public"))); // for accessing files
+app.use(bodyParser.urlencoded({ extended: true }));  // to parse the forms\
 
 // set the view engine to ejs
 app.set("view engine", "ejs");
@@ -22,20 +22,17 @@ app.set("view engine", "ejs");
 
 // index page
 app.get("/", function(req, res) {
-  let data = {};
+
   players
-    .createTable()
+    .createTable() // create table if not already made
     .then(() => {
-      return players.selectAll();
+      return players.selectAll(); // select * from players;
     })
-    .then(rows => {
-      data = rows;
-    })
-    .then(() => {
+    .then(data => {
       res.render("pages/index", {
-        data: data
+        data: data // renders the data for the ejs
       });
-    });
+    })
 });
 
 // report page
