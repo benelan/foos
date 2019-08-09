@@ -14,84 +14,64 @@
 <main>
 <div class="row">
     <div class="col-sm-8">    
-        <div class="jumbotron">
-            <form method="POST" action="/submit-game">
-            <TABLE BORDER="1">
-            <TR>
-                <TD>Team</TD>
-			    <TD>Name</TD>
-			    <TD>Points</TD>
-                <TD>Wins</TD>
-		    </TR>
-		    <TR>
-             <TD>One</TD>
-			<TD>
-				<INPUT TYPE="TEXT" NAME="name1" SIZE="20">
-			</TD>
-            <TD>
-				<INPUT TYPE="TEXT" NAME="points1" SIZE="20">
-			</TD>
-            <TD>
-				<INPUT TYPE="TEXT" NAME="wins1" SIZE="20">
-			</TD>
-		</TR>
-        <TR> 
-            <TD>One</TD>
-			<TD>
-				<INPUT TYPE="TEXT" NAME="name2" SIZE="20">
-			</TD>
-            <TD>
-				<INPUT TYPE="TEXT" NAME="points2" SIZE="20">
-			</TD>
-            <TD>
-				<INPUT TYPE="TEXT" NAME="wins2" SIZE="20">
-			</TD>
-		</TR>
-        <TR>
-         <TD>Two</TD>
-			<TD>
-				<INPUT TYPE="TEXT" NAME="name3" SIZE="20">
-			</TD>
-            <TD>
-				<INPUT TYPE="TEXT" NAME="points3" SIZE="20">
-			</TD>
-            <TD>
-				<INPUT TYPE="TEXT" NAME="wins3" SIZE="20">
-			</TD>
-		</TR>
-
-        <TR>
-                 <TD>Two</TD>
-			<TD>
-				<INPUT TYPE="TEXT" NAME="name4" SIZE="20">
-			</TD>
-            <TD>
-				<INPUT TYPE="TEXT" NAME="points4" SIZE="20">
-			</TD>
-            <TD>
-				<INPUT TYPE="TEXT" NAME="wins4" SIZE="20">
-			</TD>
-		</TR>
-		
-	</TABLE>
-    <br>
-	<P>
-		<INPUT TYPE="SUBMIT" VALUE="Submit" NAME="B1">
-	</P>
+        <div class="jumbotron" style="min-height: 460px">
+		<h2>Honor system, fellas!</h2>
+		<form method="POST" action="/submit-game">
+		<table class="table">
+			<thead>
+				<tr>
+				<th scope="col">Team</th>
+				<th scope="col">Name</th>
+				<th scope="col">Points</th>
+				<th scope="col">Wins</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+				<th scope="row">1</th>
+				<td><input type="text" class="form-control" id="name1" name="name1"/></td>
+				<td><input type="text" class="form-control" id="points1" name="points1"/></td>
+				<td><input type="text" class="form-control" id="wins1" name="wins1"/></td>
+				</tr>
+				<tr>
+				<th scope="row">1</th>
+				<td><input type="text" class="form-control" id="name2" name="name2"/></td>
+				<td><input type="text" class="form-control" id="points2" name="points2"/></td>
+				<td><input type="text" class="form-control" id="wins2" name="wins2"/></td>
+				</tr>
+				<tr>
+				<th scope="row">2</th>
+				<td><input type="text" class="form-control" id="name2" name="name2"/></td>
+				<td><input type="text" class="form-control" id="points2" name="points2"/></td>
+				<td><input type="text" class="form-control" id="wins2" name="wins2"/></td>
+				</tr>
+				<tr>
+				<th scope="row">2</th>
+				<td><input type="text" class="form-control" id="name2" name="name2"/></td>
+				<td><input type="text" class="form-control" id="points2" name="points2"/></td>
+				<td><input type="text" class="form-control" id="wins2" name="wins2"/></td>
+				</tr>
+			</tbody>
+			</table>
+				<button type="submit" class="btn btn-light">Submit</button>
             </form>
         </div>
     </div>
 
     <div class="col-sm-4">        
-        <div class="well">
+        <div class="jumbotron" style="min-height: 460px">
             <h3>Suggestions</h3>
                 <form method="POST" action="/submit-suggest">
                 
-                <p>Name: <INPUT TYPE="TEXT" NAME="namesug" SIZE="32"></p>
+                <div class="form-group">
+					<input type="text" class="form-control" id="trashy" placeholder="Enter Name">
+				</div>
                 
-                <p>Ideas to make this leaderboard better:
-				<textarea rows = "7" cols = "40" name = "description"></textarea></p>
-                <INPUT TYPE="SUBMIT" VALUE="Submit" NAME="B1">
+				<div class="form-group">
+    				<textarea class="form-control" id="trash" rows="7" placeholder="Brilliant Ideas"></textarea>
+ 					 </div>
+					  <button type="submit" class="btn btn-light">Submit</button>
+				</form>
         </div>
     </div>
 
