@@ -4,37 +4,35 @@ class PlayerRepo {
     constructor(dao) {
       this.dao = dao
     }
-    // creates table if  itdoesn't already exists
+    // creates table if  it doesn't already exists
     createTable() {
       const sql = `
         CREATE TABLE IF NOT EXISTS players (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           name TEXT,
-          points INTEGER DEFAULT 0,
           wins_round INTEGER DEFAULT 0,
           wins_series INTEGER DEFAULT 0,
           played_series INTEGER DEFAULT 0)`
       return this.dao.run(sql)
     }
     // adds to the table
-    create(name, points, wins_round, wins_series, played_series) {
+    create(name, wins_round, wins_series, played_series) {
         return this.dao.run(
-          `INSERT INTO players (name, points, wins_round, wins_series, played_series)
+          `INSERT INTO players (name, wins_round, wins_series, played_series)
             VALUES (?, ?, ?, ?, ?)`,
-          [name, points, wins_round, wins_series, played_series])
+          [name, wins_round, wins_series, played_series])
       }
     // updates a row
     update(players) {
-        const { id, name, points, wins_round, wins_series, played_series} = players
+        const { id, name, wins_round, wins_series, played_series} = players
         return this.dao.run(
           `UPDATE players
           SET name = ?,
-          points = ?,
           wins_round = ?,
           wins_series = ?,
           played_series = ?
           WHERE id = ?`,
-          [name, points, wins_round, wins_series, played_series]
+          [name, wins_round, wins_series, played_series, id]
         )
       }
       // deletes by player id

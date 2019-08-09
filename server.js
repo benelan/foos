@@ -5,7 +5,6 @@ const express = require("express"),
   path = require("path"),
   validate = require("express-validator"),
   // database stuff
-  Promise = require("bluebird"),
   AppDAO = require("./data/dao"),
   dao = new AppDAO("./data/database.sqlite3");
 (PlayerRepo = require("./data/players_repo")), (players = new PlayerRepo(dao));
