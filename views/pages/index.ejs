@@ -16,7 +16,6 @@
     <thead>
         <tr>
             <th scope="col">Name</th>
-            <th scope="col">Points</th> 
             <th scope="col">Round Wins</th>
             <th scope="col">Series Wins</th>
             <th scope="col">Series Played</th>
@@ -26,7 +25,6 @@
         <% for (var i = 0; i < data.length; i++) { %>
             <tr>
                 <td><%= data[i].name %></td>
-                <td><%= data[i].points %></td>
                 <td><%= data[i].wins_round %></td>
                 <td><%= data[i].wins_series %></td>
                 <td><%= data[i].played_series %></td>
@@ -41,7 +39,7 @@
 $(document).ready(function () {
     // makes table sortable
     $('#dt').DataTable( {
-        "order": [[ 3, "desc" ]]
+        "order": [[ 2, "desc" ]]
     });
     $('.dataTables_length').addClass('bs-select');
 });
