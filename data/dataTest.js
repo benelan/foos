@@ -11,15 +11,7 @@ function main() {
       const ps = [
 
         {
-          name: 'Ben',
-          points: 0,
-          wins_round: 0,
-          wins_series: 0,
-          played_series: 0
-        },
-        {
-          name: 'Jose',
-          points: 0,
+          name: player,
           wins_round: 0,
           wins_series: 0,
           played_series: 0
@@ -27,8 +19,8 @@ function main() {
       ]
       console.log('adding players');
       return Promise.all(ps.map((p) => {
-        const { name, points, wins_round, wins_series, played_series } = p
-        return playerRepo.create(name, points, wins_round, wins_series, played_series)
+        const { name, wins_round, wins_series, played_series } = p
+        return playerRepo.create(name, wins_round, wins_series, played_series)
       }))
     })
     .catch((err) => {

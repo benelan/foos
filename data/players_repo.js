@@ -19,20 +19,18 @@ class PlayerRepo {
     create(name, wins_round, wins_series, played_series) {
         return this.dao.run(
           `INSERT INTO players (name, wins_round, wins_series, played_series)
-            VALUES (?, ?, ?, ?, ?)`,
+            VALUES (?, ?, ?, ?)`,
           [name, wins_round, wins_series, played_series])
       }
     // updates a row
-    update(players) {
-        const { id, name, wins_round, wins_series, played_series} = players
+    update(id, wins_round, wins_series, played_series) {
         return this.dao.run(
           `UPDATE players
-          SET name = ?,
-          wins_round = ?,
+          SET wins_round = ?,
           wins_series = ?,
           played_series = ?
           WHERE id = ?`,
-          [name, wins_round, wins_series, played_series, id]
+          [wins_round, wins_series, played_series, id]
         )
       }
       // deletes by player id
@@ -48,10 +46,23 @@ class PlayerRepo {
           `SELECT * FROM players WHERE id = ?`,
           [id])
       }
+
+      // select * by player id
+      getByName(name) {
+        return this.dao.get(
+          `SELECT * FROM players WHERE name = ?`,
+          [name])
+      }
       // select *
       selectAll() {
         return this.dao.all(
           `SELECT * FROM players`)
+        }
+
+        // select *
+      selectName() {
+        return this.dao.all(
+          `SELECT name FROM players`)
         }
 
     }
