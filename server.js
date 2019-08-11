@@ -51,7 +51,7 @@ app.get("/report", function(req, res) {
 });
 
 app.post("/submit-game", (req, res) => {
-  const {name1, name2, name3, name4, wins1, wins2}= req.body;
+  let {name1, name2, name3, name4, wins1, wins2}= req.body;
   if (parseInt(wins1) + parseInt(wins2) != 5) {
     res.send(500,'The number of wins submitted did not add up to 5. Please go back and try again.')
   }
@@ -59,10 +59,12 @@ app.post("/submit-game", (req, res) => {
     res.send(500, 'Please select players from the list')
   }
   const names = [name1, name2, name3, name4];
-
+  wins1 = parseInt(wins1);
+  wins2 = parseInt(wins2);
   if (hasDuplicate(names)) {
     res.send(500, 'There was a duplicate player name. Please go back and try again.')
   }
+  // PLAYERS
   for (let i = 0; i < names.length; i++) {
     players.createTable() // create table if not already made
     .then(() => {
@@ -70,7 +72,7 @@ app.post("/submit-game", (req, res) => {
     })
     .then(data => {
       if (i < 2) { // team 1
-        let wonRounds = parseInt(wins1) + data.wins_round ;
+        let wonRounds = wins1 + data.wins_round;
         let wonSeries = data.wins_series;
         let playedSeries = data.played_series + 1;
         if (wins1 >= 3) {
@@ -78,9 +80,8 @@ app.post("/submit-game", (req, res) => {
         }
         players.update(data.id, wonRounds, wonSeries, playedSeries)
       }
-
       else { // team 2
-        let wonRounds = parseInt(wins2) + data.wins_round ;
+        let wonRounds = wins2 + data.wins_round ;
         let wonSeries = data.wins_series;
         let playedSeries = data.played_series + 1;
         if (wins2 >= 3) {
@@ -90,6 +91,19 @@ app.post("/submit-game", (req, res) => {
       }
     })
   }
+
+  // GAMES
+  games.createTable()
+  .then(() => {
+    var currentdate = new Date(); 
+    var datetime = currentdate.getDate() + "-"
+                + (currentdate.getMonth()+1)  + "-" 
+                + currentdate.getFullYear() + " "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds();
+    return games.create(name1, name2, name3, name4, wins1, wins2, datetime)
+  })
   res.redirect('back');
   res.end();
 });
@@ -99,7 +113,6 @@ app.post("/submit-play", [
 ], (req, res) => {
   let {play}= req.body;
   play = play.toLowerCase().capitalize();
-  console.log(play)
   players.createTable()
     .then(() => {
       return players.getByName(play)})// if player is already created
@@ -127,7 +140,7 @@ app.post("/submit-suggest", [
   console.log(name + " suggests: " + trash);
   trashcan.createTable() // create table if not already made
     .then(() => {
-      return trashRepo.create(name, trash) // add suggestion
+      return trashcan.create(name, trash) // add suggestion
     })
   res.redirect('back');
   res.end();

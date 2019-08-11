@@ -10,7 +10,7 @@ class GameRepo {
         CREATE TABLE IF NOT EXISTS games (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           t1p1 TEXT,
-          t1p2 TEXT.
+          t1p2 TEXT,
           t2p1 TEXT,
           t2p2 TEXT,
           t1wins INTEGER,
@@ -22,7 +22,7 @@ class GameRepo {
     create(t1p1, t1p2, t2p1, t2p2, t1wins, t2wins, date) {
         return this.dao.run(
           `INSERT INTO games (t1p1, t1p2, t2p1, t2p2, t1wins, t2wins, date)
-            VALUES (?, ?, ?, ?, ?)`,
+            VALUES (?, ?, ?, ?, ?, ?, ?)`,
           [t1p1, t1p2, t2p1, t2p2, t1wins, t2wins, date])
       }
     // updates a row
@@ -30,11 +30,13 @@ class GameRepo {
         const { id, t1p1, t1p2, t2p1, t2p2, t1wins, t2wins, date} = games
         return this.dao.run(
           `UPDATE games
-          SET name = ?,
-          points = ?,
-          wins_round = ?,
-          wins_series = ?,
-          played_series = ?
+          SET t1p1 = ?,
+          t1p2 = ?,
+          t2p1 = ?,
+          t2p2 = ?,
+          t1wins = ?,
+          t2wins = ?,
+          date = ?
           WHERE id = ?`,
           [t1p1, t1p2, t2p1, t2p2, t1wins, t2wins, date, id]
         )
