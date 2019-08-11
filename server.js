@@ -150,8 +150,7 @@ app.post("/submit-suggest", [
   res.end();
 });
 
-app.listen(8080);
-console.log("8080 is the magic port");
+app.listen(process.env.PORT || 8080);
 
 
 
