@@ -3,14 +3,14 @@
 const express = require("express"),
   bodyParser = require("body-parser"),
   path = require("path"),
-  validate = require("express-validator"),
+  {check, validationResult} = require("express-validator"),
   // database stuff
   AppDAO = require("./data/dao"),
   dao = new AppDAO("./data/database.sqlite3");
 // table access
 (PlayerRepo = require("./data/players_repo")), (players = new PlayerRepo(dao));
 (GameRepo = require("./data/games_repo")), (games = new GameRepo(dao));
-(TrashRepo = require("./data/trash_repo")), (trash = new TrashRepo(dao));
+(TrashRepo = require("./data/trash_repo")), (trashcan = new TrashRepo(dao));
 
 
 app = express();
@@ -52,16 +52,24 @@ app.get("/report", function(req, res) {
 
 app.post("/submit-game", (req, res) => {
   const {name1, name2, name3, name4, wins1, wins2}= req.body;
+  if (parseInt(wins1) + parseInt(wins2) != 5) {
+    res.send(500,'The number of wins submitted did not add up to 5. Please go back and try again.')
+  }
+  if (name1 == undefined || name2 == undefined || name3 == undefined || name4 == undefined) {
+    res.send(500, 'Please select players from the list')
+  }
   const names = [name1, name2, name3, name4];
+
+  if (hasDuplicate(names)) {
+    res.send(500, 'There was a duplicate player name. Please go back and try again.')
+  }
   for (let i = 0; i < names.length; i++) {
     players.createTable() // create table if not already made
     .then(() => {
-      console.log(names[i])
       return players.getByName(names[i]);
     })
     .then(data => {
-      if (i <= 2) { // team 1
-        console.log('team1')
+      if (i < 2) { // team 1
         let wonRounds = parseInt(wins1) + data.wins_round ;
         let wonSeries = data.wins_series;
         let playedSeries = data.played_series + 1;
@@ -72,7 +80,6 @@ app.post("/submit-game", (req, res) => {
       }
 
       else { // team 2
-        console.log('team2')
         let wonRounds = parseInt(wins2) + data.wins_round ;
         let wonSeries = data.wins_series;
         let playedSeries = data.played_series + 1;
@@ -87,20 +94,36 @@ app.post("/submit-game", (req, res) => {
   res.end();
 });
 
-app.post("/submit-play", (req, res) => {
-  const {play}= req.body;
+app.post("/submit-play", [
+  check('play').isLength({ min: 3 }).trim().escape().withMessage('Name must be at least 3 chars long. First name and last initial. Please Go back and try again.')
+], (req, res) => {
+  let {play}= req.body;
+  play = play.toLowerCase().capitalize();
   console.log(play)
   players.createTable()
     .then(() => {
-        return players.create(play, 0, 0, 0)
+      return players.getByName(play)})// if player is already created
+    .then((data) => {                // don't add a duplicate
+      if (data == undefined) {
+        console.log("new player added: " + play);
+        return players.create(play, 0, 0, 0); 
+      }
+      return;
     })
-  console.log("new player added: " + play);
   res.redirect('back');
   res.end();
-});
+  });
 
-app.post("/submit-suggest", (req, res) => {
-  const {name, trash}= req.body;
+app.post("/submit-suggest", [
+  check('name').isLength({ min: 3 }).trim().escape().withMessage('Name must be at least 3 chars long. First name last initial.'),
+  check('trash').isLength({ min: 5 }).trim().escape().withMessage('Suggestion must be at least 5 chars long.')
+], (req, res) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array()[0].msg})
+  }
+  let {name, trash}= req.body;
+  name = name.toLowerCase().capitalize();
   console.log(name + " suggests: " + trash);
   trashcan.createTable() // create table if not already made
     .then(() => {
@@ -112,3 +135,14 @@ app.post("/submit-suggest", (req, res) => {
 
 app.listen(8080);
 console.log("8080 is the magic port");
+
+
+
+// capitalize first letter of each word
+String.prototype.capitalize = function() {
+  return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+};
+
+function hasDuplicate(w){
+  return new Set(w).size !== w.length 
+}

@@ -69,7 +69,7 @@
                 <option><%= data[i].name %></option>
         		<% } %>
 				</td>
-				<td><select class="form-control" id="wins3" name="wins2">
+				<td><select class="form-control" id="wins2" name="wins2">
 						<option>0</option>
 						<option>1</option>
 						<option>2</option>
@@ -81,17 +81,18 @@
 				</tr>
 			</tbody>
 			</table>
-				<button type="submit" id="gameSub" onclick="clearGame()" class="btn btn-light">Submit</button>
-				<span class="glyphicon glyphicon-hand-left">Honor-System</span>
+				<button type="submit" id="gameSub" class="btn btn-light">Submit</button>
+				<span class="glyphicon glyphicon-hand-left">HonorSystem</span>
 				<span class="glyphicon glyphicon-thumbs-up"></span>
             </form>
-		<br><br>
+		<br>
 		<h4>Add Player</h4>
-                <form method="POST" action="/submit-play" id ='ss'>
-                <div class="form-group">
+                <form class="form-inline" method="POST" action="/submit-play">
+                <div class="form-group mx-sm-3 mb-2">
 					<input type="text" class="form-control" name= "play" id="play" placeholder="First Name Last Initial">
 				</div>
-					<button id="playSub" type="submit" onclick="clearPlay()" class="btn btn-light">Submit</button>
+				
+    				<button id="playSub" type="submit" class="btn btn-light">Add</button>
 				</form>
 		
 		</div>
@@ -103,22 +104,19 @@
                 <form method="POST" action="/submit-suggest" id ='ss'>
                 
                 <div class="form-group">
-					<input type="text" class="form-control" name= "trashy" id="trashy" placeholder="Name">
+					<input type="text" class="form-control" name= "name" id="name" placeholder="Name">
 				</div>
                 
 				<div class="form-group">
-    				<textarea class="form-control" name="trash" id="trash" rows="7" placeholder="Brilliant ideas"></textarea>
+    				<textarea class="form-control" name="trash" id="trash" rows="9" placeholder="Brilliant ideas"></textarea>
  					 </div>
-					  <button id="sugSub" type="submit" onclick="clearSug()" class="btn btn-light">Submit</button>
+					  <button id="sugSub" type="submit" class="btn btn-light">Submit</button>
 				</form>
         </div>
     </div>
 
 </div>
 </main>
-<script>
-// clears the form after submitting
-</script>
 <footer>
     <% include ../partials/footer %>
 </footer>
