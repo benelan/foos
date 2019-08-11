@@ -117,6 +117,10 @@ app.post("/submit-game", (req, res) => {
 app.post("/submit-play", [
   check('play').isLength({ min: 3 }).trim().escape().withMessage('Name must be at least 3 chars long. First name and last initial. Please Go back and try again.')
 ], (req, res) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array()[0].msg})
+  }
   let {play}= req.body;
   play = play.toLowerCase().capitalize();
   players.createTable()
