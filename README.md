@@ -14,12 +14,11 @@ Open a modern broweser and go to http://localhost:8080/
 
 ## TODO
 To do list (Ask to be a collaborator and help me out!)
-* validate data entered into the form
-* make the form stay on the page after submission
-* make the form values reset after submission
-* connect the form to the database
-* check if player exists, if not add them
-* if player exists update their record
+* web design
+* more data validation
+* calculate additional fields (win rate, etc)
+* do something with games table
+* webpack
 * add 'top 5' to report page
 * create a tournament page
 
@@ -27,6 +26,12 @@ To do list (Ask to be a collaborator and help me out!)
 completed items from TODO (started this list when I was halfway done)
 * display leaderboard from database
 * create tables and daos for games and suggestions
+* validate data entered into the form
+* make the form stay on the page after submission
+* make the form values reset after submission
+* connect the form to the database
+* add player form
+* check if player exists, if not add them
 
 
 ## Built With
