@@ -4,7 +4,7 @@ Who's the Esri Support Service foosball champ? Find out after these breif messag
 
 ## Prerequisites
 
-To run the web app you must have [Node](https://getbootstrap.com/) installed. With Node installed, navigate to the root folder of the app and type:
+To run the web app you must have [Node](https://nodejs.org/en/) installed. With Node installed, navigate to the root folder of the app and type:
 
 ```
 npm install
@@ -46,3 +46,5 @@ completed items from TODO (started this list when I was halfway done)
 * [bluebird](http://bluebirdjs.com/docs/getting-started.html) - Promises
 * [body-parser](https://www.npmjs.com/package/body-parser) - Reading Forms
 * [express-validator](https://express-validator.github.io/docs/) - Data Validation
+* [helmet](https://helmetjs.github.io/) - Express Security
+* [compression](https://www.npmjs.com/package/compression) - Route Compression

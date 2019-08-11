@@ -1,19 +1,24 @@
 // server.js
 // the goodies
 const express = require("express"),
+  helmet = require('helmet'),
+  compression = require('compression'),
   bodyParser = require("body-parser"),
   path = require("path"),
   {check, validationResult} = require("express-validator"),
+  
   // database stuff
   AppDAO = require("./data/dao"),
   dao = new AppDAO("./data/database.sqlite3");
-// table access
-(PlayerRepo = require("./data/players_repo")), (players = new PlayerRepo(dao));
-(GameRepo = require("./data/games_repo")), (games = new GameRepo(dao));
-(TrashRepo = require("./data/trash_repo")), (trashcan = new TrashRepo(dao));
+  // table access
+  (PlayerRepo = require("./data/players_repo")), (players = new PlayerRepo(dao));
+  (GameRepo = require("./data/games_repo")), (games = new GameRepo(dao));
+  (TrashRepo = require("./data/trash_repo")), (trashcan = new TrashRepo(dao));
 
 
 app = express();
+app.use(helmet())  // security
+app.use(compression()); //Compress all routes
 
 app.use(express.static(path.join(__dirname, "public"))); // for accessing files
 app.use(bodyParser.urlencoded({ extended: true }));  // to parse the forms
@@ -51,7 +56,8 @@ app.get("/report", function(req, res) {
 });
 
 app.post("/submit-game", (req, res) => {
-  let {name1, name2, name3, name4, wins1, wins2}= req.body;
+  let {name1, name2, name3, name4, wins1, wins2}= req.body; // deconstruct form body
+  // make sure the selections are correct
   if (parseInt(wins1) + parseInt(wins2) != 5) {
     res.send(500,'The number of wins submitted did not add up to 5. Please go back and try again.')
   }
@@ -118,7 +124,6 @@ app.post("/submit-play", [
       return players.getByName(play)})// if player is already created
     .then((data) => {                // don't add a duplicate
       if (data == undefined) {
-        console.log("new player added: " + play);
         return players.create(play, 0, 0, 0); 
       }
       return;
@@ -137,7 +142,6 @@ app.post("/submit-suggest", [
   }
   let {name, trash}= req.body;
   name = name.toLowerCase().capitalize();
-  console.log(name + " suggests: " + trash);
   trashcan.createTable() // create table if not already made
     .then(() => {
       return trashcan.create(name, trash) // add suggestion
