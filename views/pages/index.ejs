@@ -28,10 +28,18 @@
             <tr>
                 <td><%= data[i].name %></td>
                 <td><%= data[i].wins_round %></td>
-                <td><%= 100*(data[i].wins_round/(data[i].played_series*5)) + '%' %></td>
+                <% if(data[i].played_series == 0){ %>
+                    <td>0%</td>
+                <% } else{ %>  
+                    <td><%= 100*(data[i].wins_round/(data[i].played_series*5)).toFixed(4) + '%' %></td>
+                <% } %>
                 <td><%= data[i].wins_series %></td>
                 <td><%= data[i].played_series %></td>
-                <td><%= 100*(data[i].wins_series/data[i].played_series) + '%' %></td>
+                 <% if(data[i].played_series == 0){ %>
+                    <td>0%</td>
+                <% } else{ %>  
+                   <td><%= 100*(data[i].wins_series/data[i].played_series).toFixed(4) + '%' %></td>
+                <% } %>
             </tr>
         <% } %>
     </tbody>
