@@ -17,8 +17,10 @@
         <tr>
             <th scope="col">Name</th>
             <th scope="col">Round Wins</th>
+            <th scope="col">Round Win Rate</th>
             <th scope="col">Series Wins</th>
             <th scope="col">Series Played</th>
+            <th scope="col">Series Win Rate</th>
         </tr>
     </thead>
     <tbody>
@@ -26,8 +28,10 @@
             <tr>
                 <td><%= data[i].name %></td>
                 <td><%= data[i].wins_round %></td>
+                <td><%= 100*(data[i].wins_round/(data[i].played_series*5)) + '%' %></td>
                 <td><%= data[i].wins_series %></td>
                 <td><%= data[i].played_series %></td>
+                <td><%= 100*(data[i].wins_series/data[i].played_series) + '%' %></td>
             </tr>
         <% } %>
     </tbody>

@@ -10,17 +10,20 @@ To run the web app you must have [Node](https://nodejs.org/en/) installed. With 
 npm install
 node server.js
 ```
-Open a modern broweser and go to http://localhost:8080/
+Open a modern browser and go to http://localhost:8080/
+
 
 ## TODO
 To do list (Ask to be a collaborator and help me out!)
 * web design
 * more data validation
-* calculate additional fields (win rate, etc)
+* calculate additional fields (most wins with, etc)
 * do something with games table
-* webpack
+* monthly/weekly/daily top (use game table for dates)
+* use webpack
 * add 'top 5' to report page
 * create a tournament page
+* transition to postgres or mysql
 
 ## Done List
 completed items from TODO (started this list when I was halfway done)
@@ -32,6 +35,7 @@ completed items from TODO (started this list when I was halfway done)
 * connect the form to the database
 * add player form
 * check if player exists, if not add them
+* win rates added
 
 
 ## Built With
