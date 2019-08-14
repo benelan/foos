@@ -57,19 +57,20 @@ app.get("/report", function(req, res) {
 
 app.post("/submit-game", (req, res) => {
   let {name1, name2, name3, name4, wins1, wins2}= req.body; // deconstruct form body
-  // make sure the selections are correct
-  if (parseInt(wins1) + parseInt(wins2) != 5) {
-    res.send(500,'The number of wins submitted did not add up to 5. Please go back and try again.')
-  }
-  if (name1 == undefined || name2 == undefined || name3 == undefined || name4 == undefined) {
-    res.send(500, 'Please select players from the list')
-  }
   const names = [name1, name2, name3, name4];
   wins1 = parseInt(wins1);
   wins2 = parseInt(wins2);
-  if (hasDuplicate(names)) {
-    res.send(500, 'There was a duplicate player name. Please go back and try again.')
+  // make sure the selections are correct
+  if (wins1 + wins2 != 5) {
+    res.status(500).send('The number of wins submitted did not add up to 5. Please go back and try again.')
   }
+  else if (name1 == undefined || name2 == undefined || name3 == undefined || name4 == undefined) {
+    res.status(500).send('Please select players from the list')
+  }
+  else if (hasDuplicate(names)) {
+    res.status(500).send('There was a duplicate player name. Please go back and try again.')
+  }
+  else {
   // PLAYERS
   for (let i = 0; i < names.length; i++) {
     players.createTable() // create table if not already made
@@ -87,7 +88,7 @@ app.post("/submit-game", (req, res) => {
         players.update(data.id, wonRounds, wonSeries, playedSeries)
       }
       else { // team 2
-        let wonRounds = wins2 + data.wins_round ;
+        let wonRounds = wins2 + data.wins_round;
         let wonSeries = data.wins_series;
         let playedSeries = data.played_series + 1;
         if (wins2 >= 3) {
@@ -102,16 +103,17 @@ app.post("/submit-game", (req, res) => {
   games.createTable()
   .then(() => {
     var currentdate = new Date(); 
-    var datetime = currentdate.getDate() + "-"
-                + (currentdate.getMonth()+1)  + "-" 
-                + currentdate.getFullYear() + " "  
-                + currentdate.getHours() + ":"  
-                + currentdate.getMinutes() + ":" 
-                + currentdate.getSeconds();
+    var datetime = String(currentdate.getDate()).padStart(2, '0') + "-"
+    + String(currentdate.getMonth()+1).padStart(2, '0') + "-"
+    + currentdate.getFullYear() + " "  
+    + String(currentdate.getHours()).padStart(2, '0') + ":"  
+    + String(currentdate.getMinutes()).padStart(2, '0') + ":" 
+    + String(currentdate.getSeconds()).padStart(2, '0');
     return games.create(name1, name2, name3, name4, wins1, wins2, datetime)
   })
   res.redirect('back');
   res.end();
+}
 });
 
 app.post("/submit-play", [
