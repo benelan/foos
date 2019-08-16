@@ -1,6 +1,6 @@
 # Foosball Leaderboard
 
-Who's the Esri Support Service foosball champ? Find out after these breif messages from our developer.
+Who's the Esri Support Service foosball champ? Find out after these brief messages from our developer.
 
 ## Prerequisites
 
